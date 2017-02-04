@@ -1,8 +1,6 @@
 (function() {
     'use strict';
     console.debug("Loading extension");
-    var test = banan + "hej";
-
     var popup = "<div id='popup' class='mw-content-ltr' style='font-size: 0.8em; display: none; width: 400px; top: 40px; right:50;'>some text here</div></div>";
     var spinner = "<>"; //FIXME
 
@@ -44,7 +42,7 @@
             canceledBeforeOpen--;
             return;
         }
-        srcElement = event.originalEvent.srcElement;
+        var srcElement = event.originalEvent.srcElement;
         var divider = "/wiki/";
         if (realUrl.indexOf("File:") > 0) {
             //alert("File...");
@@ -77,8 +75,8 @@
                 fullResult = "<div>" + result + "</div>";
                 //$(fullResult);
 
-                stuff = $(fullResult).find("#mw-content-text").find("p");
-                narrow = $(stuff).has("b").first();
+                var stuff = $(fullResult).find("#mw-content-text").find("p");
+                var narrow = $(stuff).has("b").first();
 
                 if (narrow.length === 0) {
                     narrow = stuff;
@@ -93,10 +91,10 @@
             popup.html(event.originalEvent.srcElement.getAttribute("popupHtml"));
         }
 
-        formatPopupHtml();
+        formatPopupHtml(x, y);
     }
 
-    function formatPopupHtml() {
+    function formatPopupHtml(x, y) {
         popup.css('width', '400px');
         $("#popup").css('top', (y + document.documentElement.scrollTop + document.body.scrollTop) + mouseOffset + animationOffset + 'px');
         $("#popup").css('opacity', '1');
@@ -110,7 +108,7 @@
 
 
     function loadLink(event) {
-
+            canceledBeforeOpen = 0;
         if (canceledBeforeOpen > 0) {
             canceledBeforeOpen--;
             return;
@@ -128,10 +126,10 @@
     }
 
     function startTimer(event) {
-        setTimeout(function() { loadLink(event) }, 500);
+        setTimeout(function() { loadLink(event); }, 500);
     }
 
-    $("a").mouseover(function(event) { startTimer(event) });
+    $("a").mouseover(function(event) { startTimer(event); });
     $("a").mouseout(function(event) {
         if (isOpen) {
             close(event);

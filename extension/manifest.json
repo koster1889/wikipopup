@@ -9,7 +9,7 @@
     {
       "matches": ["https://*.wikipedia.org/*", "http://*.wikipedia.org/*"],
       "css": ["popup.css"],
-      "js": ["jquery.js", "myscript.js"]
+      "js": ["jquery.min.js", "myscript.js"]
     }
   ]
 }
